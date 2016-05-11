@@ -73,7 +73,7 @@ class Daemon(object):
         
         # write pidfile and subsys file
         pid = str(os.getpid())
-        file(self._pidfile,'w+').write("%s\n" % pid)
+        file(self._pidfile, 'w+').write("%s\n" % pid)
         if os.path.exists('/var/lock/subsys'):
             fh = open(os.path.join('/var/lock/subsys', self._serviceName), 'w')
             fh.close()
@@ -94,7 +94,7 @@ class Daemon(object):
         """
         # Check for a pidfile to see if the daemon already runs
         try:
-            pf = file(self._pidfile,'r')
+            pf = file(self._pidfile, 'r')
             pid = int(pf.read().strip())
             pf.close()
         except IOError:
@@ -124,7 +124,7 @@ class Daemon(object):
         """
         # Get the pid from the pidfile
         try:
-            pf = file(self._pidfile,'r')
+            pf = file(self._pidfile, 'r')
             pid = int(pf.read().strip())
             pf.close()
         except IOError:
@@ -133,7 +133,7 @@ class Daemon(object):
         if not pid:
             message = "pidfile %s does not exist. Daemon not running?\n"
             sys.stderr.write(message % self._pidfile)
-            return # not an error in a restart
+            return  # not an error in a restart
         
         # Try killing the daemon process
         try:

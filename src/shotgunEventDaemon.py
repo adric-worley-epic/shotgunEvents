@@ -484,7 +484,7 @@ class Engine(object):
         if nextEventId is not None:
             filters = [['id', 'greater_than', nextEventId - 1]]
             fields = ['id', 'event_type', 'attribute_name', 'meta', 'entity', 'user', 'project', 'session_uuid', 'created_at']
-            order = [{'column':'id', 'direction':'asc'}]
+            order = [{'column': 'id', 'direction': 'asc'}]
     
             conn_attempts = 0
             while True:
@@ -790,16 +790,16 @@ class Plugin(object):
         return self._active
 
     def _updateLastEventId(self, event):
-        BACKLOG_TIMEOUT = 5 # time in minutes after which we consider a pending event won't happen
+        BACKLOG_TIMEOUT = 5  # time in minutes after which we consider a pending event won't happen
         if self._lastEventId is not None and event["id"] > self._lastEventId + 1:
             event_date = event["created_at"].replace(tzinfo=None)
             if datetime.datetime.now() > (event_date + datetime.timedelta(minutes=BACKLOG_TIMEOUT)):
                 # the event we've just processed happened more than BACKLOG_TIMEOUT minutes ago so any event
                 # with a lower id should have shown up in the EventLog by now if it actually happened
-                if event["id"]==self._lastEventId+2:
-                    self.logger.info('Event %d never happened - ignoring.', self._lastEventId+1)
+                if event["id"] == self._lastEventId + 2:
+                    self.logger.info('Event %d never happened - ignoring.', self._lastEventId + 1)
                 else:
-                    self.logger.info('Events %d-%d never happened - ignoring.', self._lastEventId+1, event["id"]-1)
+                    self.logger.info('Events %d-%d never happened - ignoring.', self._lastEventId + 1, event["id"] - 1)
             else:
                 # in this case, we want to add the missing events to the backlog as they could show up in the
                 # EventLog within BACKLOG_TIMEOUT minutes, during which we'll keep asking for the same range
