@@ -84,7 +84,8 @@ def _setFilePathOnLogger(logger, path):
 
     # Add the file handler
     handler = logging.handlers.TimedRotatingFileHandler(path, 'midnight', backupCount=10)
-    handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
+    handler.setFormatter(logging.Formatter(fmt='[%(asctime)s:%(msecs)03d][%(levelname)-8s]%(name)s %(message)s',
+                                           datefmt='%Y.%m.%d-%H.%M.%S'))
     logger.addHandler(handler)
 
 
