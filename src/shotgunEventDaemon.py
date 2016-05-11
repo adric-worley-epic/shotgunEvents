@@ -23,9 +23,6 @@ folder or an html compiled version at:
 http://shotgunsoftware.github.com/shotgunEvents
 """
 
-__version__ = '0.9'
-__version_info__ = (0, 9)
-
 import ConfigParser
 import datetime
 import imp
@@ -55,6 +52,8 @@ if sys.platform == 'win32':
 import daemonizer
 import shotgun_api3 as sg
 
+__version__ = '0.9'
+__version_info__ = (0, 9)
 
 CURRENT_PYTHON_VERSION = StrictVersion(sys.version.split()[0])
 PYTHON_25 = StrictVersion('2.5')
